@@ -13,7 +13,9 @@
           <input class="m-1" type="password" id="inpPsw" placeholder="password123!">
          
           <span id="btnLogin" class="btn btn-success mt-4">Log in</span>
-          <span id="btnSignUp" class="btn btn-light mt-4">Registrati</span>
+          <span id="btnSignUp" class="btn btn-light mt-4">
+            <RouterLink class="nav-link" to="/signUpPage">Registrati</RouterLink>
+          </span>
           
         </div>
 

@@ -3,6 +3,7 @@ import HomeView from '@/views/HomeView.vue'
 import AllTravelsView from '@/views/AllTravelView.vue'
 import LoginView from '@/views/LoginView.vue'
 import UserPageView from '@/views/UserPageView.vue'
+import SignUp from '@/views/SignUp.vue'
 import NotFoundView from '@/views/NotFoundView.vue'
 
 const router = createRouter({
@@ -27,6 +28,11 @@ const router = createRouter({
       path: '/userPage',
       name: 'userPage',
       component: UserPageView
+    },
+    {
+      path: '/signUpPage',
+      name: 'signUpPage',
+      component: SignUp
     },
     
 

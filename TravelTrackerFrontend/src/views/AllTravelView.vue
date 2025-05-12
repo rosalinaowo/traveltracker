@@ -2,46 +2,15 @@
 
 import { onMounted, onBeforeMount } from 'vue'
 
-
+const cityList = ['Cervia', 'Cesena', 'Santa Maria Nuova Spallicci di Bertinoro Centro', 'Crocevia Ciarpame', 'Napoli', 'Massachussets Institute of Technology', 'Nessus'];
 
 let travels = [];
 let typeFilter = 'all';
 onBeforeMount(() => {
 
 
-  const cityList = ['Cervia', 'Cesena', 'Santa Maria Nuova Spallicci di Bertinoro Centro', 'Crocevia Ciarpame', 'Napoli', 'Massachussets Institute of Technology', 'Nessus'];
-  for (let i = 0; i < 5; i++) {
-    /// <summary> 
-    /// questa funzione genera viaggi fittizi per testare l'interfaccia grafica con elementi di lunghezza variabile.
-    /// il tipo e citta' sono decisi con un random, mentre le date sono fisse rispetto alla data corrente
-    /// </summary>
-
-    //dichiarazione tipo (aereo-treno)
-    let _type;
-    if (getRndIntegerInclusive(0, 1) == 0) { _type = 'Treno'; } else { _type = 'Aereo'; };
-
-    // dichiara data 
-    var _code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
-
-    var _departureDate = new Date();
-    _departureDate.setDate(_departureDate.getDate() + 1)
-
-    var _arrivalDate = _departureDate;
-    _arrivalDate.setHours(_arrivalDate.getHours() + 1)
-
-    var _departureCity = cityList[getRndIntegerInclusive(0, cityList.length - 1)]
-
-    var _arrivalCity = cityList[getRndIntegerInclusive(0, cityList.length - 1)]
-
-    travels[i] = {
-      type: _type,
-      code: _code,
-      departureDate: _departureDate,
-      departureCity: _departureCity,
-      arrivalDate: _arrivalDate,
-      arrivalCity: _arrivalCity
-    }
-  }
+  
+  
 })
 
 
@@ -101,11 +70,67 @@ onBeforeMount(() => {
 </template>
 
 <script>
+var filterApp = new Vue({
+
+  el: '#filtered',
+
+  data: {
+     search: '',
+     travels: [
+     ]
+  },
+
+  computed: {
+    filteredItems() {
+      return this.travels.filter(travel => {
+         return travel.type.toLowerCase().indexOf(this.search.toLowerCase()) > -1
+      })
+    }
+  }
+
+})
+
+// questa funzione genera interi casuali. non toccare, kplsthx
 function getRndIntegerInclusive(min, max) {
   return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
+function generateRandomTravels(amount){
+    /// <summary> 
+    /// questa funzione genera viaggi fittizi per testare l'interfaccia grafica con elementi di lunghezza variabile.
+    /// il tipo e citta' sono decisi con un random, mentre le date sono fisse rispetto alla data corrente
+    /// </summary>
 
+  for (let i = 0; i < amount; i++) {
+    
+
+    //dichiarazione tipo (aereo-treno)
+    let _type;
+    if (getRndIntegerInclusive(0, 1) == 0) { _type = 'Treno'; } else { _type = 'Aereo'; };
+
+    // dichiara data 
+    var _code = Math.floor(Math.random() * (9999 - 1000 + 1)) + 1000;
+
+    var _departureDate = new Date();
+    _departureDate.setDate(_departureDate.getDate() + 1)
+
+    var _arrivalDate = _departureDate;
+    _arrivalDate.setHours(_arrivalDate.getHours() + 1)
+
+    var _departureCity = cityList[getRndIntegerInclusive(0, cityList.length - 1)]
+
+    var _arrivalCity = cityList[getRndIntegerInclusive(0, cityList.length - 1)]
+
+    filterApp.travels[i] = {
+      type: _type,
+      code: _code,
+      departureDate: _departureDate,
+      departureCity: _departureCity,
+      arrivalDate: _arrivalDate,
+      arrivalCity: _arrivalCity
+    }
+  }
+}
 
 </script>
 

@@ -32,21 +32,23 @@ async function getStazione(nomeStazione) {
 
 
 async function getTickets(params) {
+  
+  console.log(params)
   const url =
     "https://www.lefrecce.it/Channels.Website.BFF.WEB/website/ticket/solutions";
   const options = {
     method: "POST",
     headers: {
-      "Content-Type": "application/json",
+      "Content-Type": "application/json", 
     },
-    body: JSON.stringify(params),
+    body: params,
   };
+
+
 
   try {
     const response = await fetch(url, options);
-    if (!response.ok) {
-      throw new Error("Erroraccio");
-    }
+  
 
     const data = await response.json();
     return data;

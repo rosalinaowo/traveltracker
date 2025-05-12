@@ -24,4 +24,31 @@
 
     </div>
   </div>
+
+  
 </template>
+
+<style scoped>
+  #divForm{
+    width: 50vw;
+  }
+
+  input{
+    height: 5vh;
+  }
+
+  label{
+    font-size: x-large;
+  }
+
+  #btnLogin{
+    width: 7vw;
+    margin-left: 18vw;
+  }
+
+  #btnSignUp{
+    width: 7vw;
+    margin-left: 18vw;
+  }
+
+</style>  

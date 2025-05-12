@@ -20,7 +20,6 @@ router.route("/getStazione/:nStazione").get((req, res) => { //verrà chiamato og
   nomeStazione = req.params.nStazione;
   api.getStazione(nomeStazione).then((data) => {
     res.status(201).json(data);
-    console.log(data);
   });
 });
 
@@ -28,21 +27,37 @@ router.route("/getStazione/:nStazione").get((req, res) => { //verrà chiamato og
 
 
 router.route("/getTicket").post((req, res) => {
- 
-    const searchParams = {
-      departureLocationId: req.body.departureLocationId,
-      arrivalLocationId: req.body.arrivalLocationId,
-      departureTime: req.body.departureTime,
-      adults: req.body.adults,
-      children: req.body.children,
-      criteria: req.body.criteria,
-      advancedSearchRequest: req.body.advancedSearchRequest,
+  console.log(req.body);  
+  const searchParams = {
+      departureLocationId: req.body.departureStation,
+      arrivalLocationId: req.body.arrivalStation,
+      departureTime: req.body.departureDate,
+      arrivalTime : req.body.arrivalDate ? new Date(req.body.arrivalDate).toISOString() : null,
+      adults: req.body.adultNumber,
+      children: req.body.childrenNumber,
+      criteria: req.body.criteria ? req.body.criteria : null,
+      advancedSearchRequest: req.body.advancedSearchRequest ? req.body.advancedSearchRequest : null, 
     };
 
-  api.getTickets(searchParams).then((data) => {
+
+  if(searchParams.arrivalTime == null){
+    delete searchParams.arrivalTime;
+  }
+  if(searchParams.advancedSearchRequest == null){
+    delete searchParams.advancedSearchRequest;
+  }
+  if(searchParams.criteria == null){
+    delete searchParams.criteria;
+  }
+  const searchParamsJson = JSON.stringify(searchParams);
+
+  
+
+  api.getTickets(searchParamsJson).then((data) => {
     res.status(201).json(data);
-    console.log(data);
+    
   });
+
 });
 
 var port = process.env.PORT || 8090;
